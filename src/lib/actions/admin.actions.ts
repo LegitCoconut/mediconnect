@@ -169,3 +169,45 @@ export async function getWeeklyAppointmentTrends() {
         return [];
     }
 }
+
+export type AdminSession = {
+    id: string;
+    name: string;
+    email: string;
+    role: 'superadmin' | 'admin';
+};
+
+export async function loginAdmin(
+    email: string,
+    password: string
+): Promise<ActionResult<AdminSession>> {
+    try {
+        await connectDB();
+
+        const admin = await Admin.findOne({ email, isActive: true });
+        if (!admin) {
+            return { success: false, message: 'Invalid email or password' };
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, admin.password);
+        if (!isPasswordValid) {
+            return { success: false, message: 'Invalid email or password' };
+        }
+
+        return {
+            success: true,
+            message: 'Login successful',
+            data: {
+                id: admin._id.toString(),
+                name: admin.name,
+                email: admin.email,
+                role: admin.role,
+            },
+        };
+    } catch (error) {
+        console.error('Admin login error:', error);
+        return { success: false, message: 'Login failed. Please try again.' };
+    }
+}
+
+
