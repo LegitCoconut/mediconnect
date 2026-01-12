@@ -14,16 +14,16 @@ The ecosystem is divided into two primary applications:
 
 <table>
   <tr>
-    <td align="center"><img src="/home.png" width="200"/><br/><b>Home Screen</b></td>
-    <td align="center"><img src="/search.png" width="200"/><br/><b>Doctor Search</b></td>
-    <td align="center"><img src="/search_hospita.png" width="200"/><br/><b>Hospital Search</b></td>
-    <td align="center"><img src="/doctor_profile.png" width="200"/><br/><b>Doctor Profile</b></td>
+    <td align="center"><img src="https://github.com/LegitCoconut/mediconnect/blob/main/public/home.png?raw=true" width="200"/><br/><b>Home Screen</b></td>
+    <td align="center"><img src="https://github.com/LegitCoconut/mediconnect/blob/main/public/search.png?raw=true" width="200"/><br/><b>Doctor Search</b></td>
+    <td align="center"><img src="https://github.com/LegitCoconut/mediconnect/blob/main/public/search_hospita.png?raw=true" width="200"/><br/><b>Hospital Search</b></td>
+    <td align="center"><img src="https://github.com/LegitCoconut/mediconnect/blob/main/public/doctor_profile.png?raw=true" width="200"/><br/><b>Doctor Profile</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="/upcoming_appoint.png" width="200"/><br/><b>Upcoming Appointments</b></td>
-    <td align="center"><img src="/past_appoint.png" width="200"/><br/><b>Past Appointments</b></td>
-    <td align="center"><img src="/appoint_details.png" width="200"/><br/><b>Appointment Details</b></td>
-    <td align="center"><img src="/tdy_medicine.png" width="200"/><br/><b>Today's Medicines</b></td>
+    <td align="center"><img src="https://github.com/LegitCoconut/mediconnect/blob/main/public/upcoming_appoint.png?raw=true" width="200"/><br/><b>Upcoming Appointments</b></td>
+    <td align="center"><img src="https://github.com/LegitCoconut/mediconnect/blob/main/public/past_appoint.png?raw=true" width="200"/><br/><b>Past Appointments</b></td>
+    <td align="center"><img src="https://github.com/LegitCoconut/mediconnect/blob/main/public/appoint_details.png?raw=true" width="200"/><br/><b>Appointment Details</b></td>
+    <td align="center"><img src="https://github.com/LegitCoconut/mediconnect/blob/main/public/tdy_medicine.png?raw=true" width="200"/><br/><b>Today's Medicines</b></td>
   </tr>
 </table>
 
