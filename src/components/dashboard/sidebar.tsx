@@ -46,12 +46,12 @@ export function DashboardSidebar() {
             const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
             return (
               <SidebarMenuItem key={item.label}>
-                <Link href={item.href} legacyBehavior passHref>
-                  <SidebarMenuButton isActive={isActive} tooltip={item.label}>
+                <SidebarMenuButton asChild isActive={isActive} tooltip={item.label}>
+                  <Link href={item.href}>
                     <item.icon />
                     <span>{item.label}</span>
-                  </SidebarMenuButton>
-                </Link>
+                  </Link>
+                </SidebarMenuButton>
               </SidebarMenuItem>
             );
           })}
@@ -60,20 +60,20 @@ export function DashboardSidebar() {
       <SidebarFooter className="border-t border-border/20">
         <SidebarMenu>
           <SidebarMenuItem>
-            <Link href="/dashboard/settings" legacyBehavior passHref>
-              <SidebarMenuButton isActive={pathname.startsWith('/dashboard/settings')} tooltip="Settings">
+            <SidebarMenuButton asChild isActive={pathname.startsWith('/dashboard/settings')} tooltip="Settings">
+              <Link href="/dashboard/settings">
                 <Settings />
                 <span>Settings</span>
-              </SidebarMenuButton>
-            </Link>
+              </Link>
+            </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <Link href="/auth/login" legacyBehavior passHref>
-              <SidebarMenuButton tooltip="Logout">
+            <SidebarMenuButton asChild tooltip="Logout">
+              <Link href="/login">
                 <LogOut />
                 <span>Logout</span>
-              </SidebarMenuButton>
-            </Link>
+              </Link>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
