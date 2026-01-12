@@ -18,7 +18,7 @@ const formSchema = z.object({
   password: z.string().min(1, { message: "Password is required." }),
 });
 
-export function AdminLoginForm() {
+export function DoctorLoginForm() {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -31,8 +31,9 @@ export function AdminLoginForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    if (values.email === "admin@mediconnect.com" && values.password === "admin") {
-      router.push("/dashboard");
+    // In a real app, you would validate against a database
+    if (values.email === "doctor@mediconnect.com" && values.password === "password") {
+      router.push("/doctor/dashboard");
     } else {
       toast({
         variant: "destructive",
@@ -45,8 +46,8 @@ export function AdminLoginForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Admin Login</CardTitle>
-        <CardDescription>Enter your credentials to access the admin dashboard.</CardDescription>
+        <CardTitle>Doctor Login</CardTitle>
+        <CardDescription>Access your schedule and patient information.</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -58,7 +59,7 @@ export function AdminLoginForm() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="admin@mediconnect.com" {...field} />
+                    <Input placeholder="name@specialty.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -71,7 +72,7 @@ export function AdminLoginForm() {
                 <FormItem>
                    <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="admin" {...field} />
+                    <Input type="password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -83,7 +84,7 @@ export function AdminLoginForm() {
           </form>
         </Form>
         <div className="mt-4 text-center text-sm">
-          Not an admin?{' '}
+          Not a doctor?{' '}
           <Link href="/" className="underline">
             Go back
           </Link>

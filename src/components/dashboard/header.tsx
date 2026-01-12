@@ -1,3 +1,4 @@
+
 "use client"
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -14,23 +15,23 @@ export function DashboardHeader() {
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-9 w-9 rounded-full">
                     <Avatar className="h-9 w-9">
-                        <AvatarImage src="https://picsum.photos/seed/user1/100/100" data-ai-hint="person portrait" alt="@admin" />
-                        <AvatarFallback>AD</AvatarFallback>
+                        <AvatarImage src="https://picsum.photos/seed/user1/100/100" data-ai-hint="person portrait" alt="@user" />
+                        <AvatarFallback>U</AvatarFallback>
                     </Avatar>
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuLabel>
                     <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-medium leading-none">Admin User</p>
-                        <p className="text-xs leading-none text-muted-foreground">admin@mediconnect.com</p>
+                        <p className="text-sm font-medium leading-none">User</p>
+                        <p className="text-xs leading-none text-muted-foreground">user@mediconnect.com</p>
                     </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild><Link href="/settings">Settings</Link></DropdownMenuItem>
                 <DropdownMenuItem>Support</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild><Link href="/login">Logout</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/">Logout</Link></DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     </header>

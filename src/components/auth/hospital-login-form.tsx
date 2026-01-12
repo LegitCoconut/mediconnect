@@ -18,7 +18,7 @@ const formSchema = z.object({
   password: z.string().min(1, { message: "Password is required." }),
 });
 
-export function AdminLoginForm() {
+export function HospitalLoginForm() {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -31,8 +31,9 @@ export function AdminLoginForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    if (values.email === "admin@mediconnect.com" && values.password === "admin") {
-      router.push("/dashboard");
+    // In a real app, you would validate against a database
+    if (values.email === "hospital@mediconnect.com" && values.password === "password") {
+      router.push("/hospital/dashboard");
     } else {
       toast({
         variant: "destructive",
@@ -45,8 +46,8 @@ export function AdminLoginForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Admin Login</CardTitle>
-        <CardDescription>Enter your credentials to access the admin dashboard.</CardDescription>
+        <CardTitle>Hospital Login</CardTitle>
+        <CardDescription>Login to manage your institution's profile and staff.</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -58,7 +59,7 @@ export function AdminLoginForm() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="admin@mediconnect.com" {...field} />
+                    <Input placeholder="manager@hospital.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -71,7 +72,7 @@ export function AdminLoginForm() {
                 <FormItem>
                    <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="admin" {...field} />
+                    <Input type="password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -82,8 +83,8 @@ export function AdminLoginForm() {
             </Button>
           </form>
         </Form>
-        <div className="mt-4 text-center text-sm">
-          Not an admin?{' '}
+         <div className="mt-4 text-center text-sm">
+          Not a hospital?{' '}
           <Link href="/" className="underline">
             Go back
           </Link>
