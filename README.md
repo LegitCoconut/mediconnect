@@ -29,6 +29,29 @@ The ecosystem is divided into two primary applications:
 
 ---
 
+## 🖥️ Web App Screenshots
+
+<table>
+  <tr>
+    <td align="center"><img src="https://github.com/LegitCoconut/mediconnect/blob/main/public/home_login.png?raw=true" width="400"/><br/><b>Landing Page</b></td>
+    <td align="center"><img src="https://github.com/LegitCoconut/mediconnect/blob/main/public/hospital_dash.png?raw=true" width="400"/><br/><b>Hospital Dashboard</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="https://github.com/LegitCoconut/mediconnect/blob/main/public/hospital_appointments.png?raw=true" width="400"/><br/><b>Hospital Appointments</b></td>
+    <td align="center"><img src="https://github.com/LegitCoconut/mediconnect/blob/main/public/hospital_doctor_add.png?raw=true" width="400"/><br/><b>Add Doctor</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="https://github.com/LegitCoconut/mediconnect/blob/main/public/hospital_dept_add.png?raw=true" width="400"/><br/><b>Add Department</b></td>
+    <td align="center"><img src="https://github.com/LegitCoconut/mediconnect/blob/main/public/patient_profile_view.png?raw=true" width="400"/><br/><b>Patient Profile View</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="https://github.com/LegitCoconut/mediconnect/blob/main/public/doctor_dash.png?raw=true" width="400"/><br/><b>Doctor Dashboard</b></td>
+    <td align="center"><img src="https://github.com/LegitCoconut/mediconnect/blob/main/public/doctor_appintment.png?raw=true" width="400"/><br/><b>Doctor Appointments</b></td>
+  </tr>
+</table>
+
+---
+
 ## ✨ Key Features
 
 ### 🏥 Hospital & Admin Web Portal
