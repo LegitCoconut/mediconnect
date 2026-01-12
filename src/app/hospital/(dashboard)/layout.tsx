@@ -11,12 +11,13 @@ export default function HospitalDashboardLayout({
   return (
     <SidebarProvider>
       <DashboardSidebar />
-      <SidebarInset>
+      <SidebarInset className="w-full overflow-x-hidden">
         <DashboardHeader />
-        <div className="p-4 md:p-6 lg:p-8">
+        <div className="p-4 md:p-6 lg:p-8 w-full">
           {children}
         </div>
       </SidebarInset>
     </SidebarProvider>
   );
 }
+
