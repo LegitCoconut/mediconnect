@@ -1,11 +1,9 @@
-
-"use client";
-
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { signIn } from "next-auth/react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -30,15 +28,21 @@ export function AdminLoginForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    if (values.email === "admin@mediconnect.com" && values.password === "admin") {
-      router.push("/dashboard");
-    } else {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const result = await signIn('admin-login', {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+    });
+
+    if (result?.error) {
       toast({
         variant: "destructive",
-        title: "Invalid credentials",
-        description: "Please check your email and password.",
+        title: "Login Failed",
+        description: result.error,
       });
+    } else if (result?.ok) {
+      router.push("/dashboard");
     }
   }
 

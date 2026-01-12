@@ -1,13 +1,9 @@
+"use client";
 
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { SessionProvider } from 'next-auth/react';
-
-export const metadata: Metadata = {
-  title: 'MediConnect Pro',
-  description: 'A professional platform for medical connectivity.',
-};
 
 export default function RootLayout({
   children,
