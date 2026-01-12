@@ -47,8 +47,24 @@ export const authOptions: AuthOptions = {
                 }
 
                 await connectDB();
+                
+                // Temporary sample user creation for testing
+                const existingHospital = await Hospital.findOne({ email: "abd@gmail.com" });
+                if (!existingHospital) {
+                    const salt = await bcrypt.genSalt(10);
+                    const hashedPassword = await bcrypt.hash("abcd", salt);
+                    await Hospital.create({
+                        name: "abcdhop",
+                        email: "abd@gmail.com",
+                        password: hashedPassword,
+                        phone: "1234567890",
+                        isVerified: true,
+                    });
+                }
+
 
                 const hospital = await Hospital.findOne({ email: credentials.email });
+
                 if (!hospital) {
                     throw new Error('No hospital found with this email');
                 }

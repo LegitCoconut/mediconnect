@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { signIn } from "next-auth/react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -32,16 +33,21 @@ export function HospitalLoginForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // In a real app, you would validate against a database
-    if (values.email === "hospital@mediconnect.com" && values.password === "password") {
-      router.push("/hospital/dashboard");
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Invalid credentials",
-        description: "Please check your email and password.",
-      });
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const result = await signIn('hospital-login', {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+    });
+
+    if (result?.error) {
+        toast({
+            variant: "destructive",
+            title: "Login Failed",
+            description: result.error,
+        });
+    } else if (result?.ok) {
+        router.push("/hospital/dashboard");
     }
   }
 
@@ -61,7 +67,7 @@ export function HospitalLoginForm() {
                 <FormItem>
                   <FormLabel>Hospital Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Green Valley General" {...field} />
+                    <Input placeholder="abcdhop" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -74,7 +80,7 @@ export function HospitalLoginForm() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="manager@hospital.com" {...field} />
+                    <Input placeholder="abd@gmail.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -87,7 +93,7 @@ export function HospitalLoginForm() {
                 <FormItem>
                    <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" {...field} />
+                    <Input type="password" placeholder="abcd" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
