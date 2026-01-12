@@ -3,8 +3,10 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
 export interface IDoctor extends Document {
     _id: mongoose.Types.ObjectId;
     hospitalId: mongoose.Types.ObjectId;
+    departmentId: mongoose.Types.ObjectId;
     name: string;
     email: string;
+    password: string;
     phone: string;
     specialization: string;
     qualifications: string[];
@@ -22,8 +24,10 @@ export interface IDoctor extends Document {
 const DoctorSchema = new Schema<IDoctor>(
     {
         hospitalId: { type: Schema.Types.ObjectId, ref: 'Hospital', required: true },
+        departmentId: { type: Schema.Types.ObjectId, ref: 'Department', required: true },
         name: { type: String, required: true },
-        email: { type: String, required: true },
+        email: { type: String, required: true, unique: true },
+        password: { type: String, required: true },
         phone: { type: String, required: true },
         specialization: { type: String, required: true },
         qualifications: [{ type: String }],

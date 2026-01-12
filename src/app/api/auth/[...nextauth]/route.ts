@@ -1,8 +1,7 @@
-
 import NextAuth, { AuthOptions, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { connectDB } from '@/lib/db';
-import { Hospital, Admin } from '@/models';
+import { Hospital, Admin, Doctor } from '@/models';
 import bcrypt from 'bcryptjs';
 
 declare module 'next-auth' {
@@ -11,8 +10,10 @@ declare module 'next-auth' {
             id: string;
             email: string;
             name: string;
-            role: 'hospital' | 'admin' | 'superadmin';
+            role: 'hospital' | 'admin' | 'superadmin' | 'doctor';
             isVerified?: boolean;
+            hospitalId?: string;
+            departmentId?: string;
         };
     }
 
@@ -20,16 +21,20 @@ declare module 'next-auth' {
         id: string;
         email: string;
         name: string;
-        role: 'hospital' | 'admin' | 'superadmin';
+        role: 'hospital' | 'admin' | 'superadmin' | 'doctor';
         isVerified?: boolean;
+        hospitalId?: string;
+        departmentId?: string;
     }
 }
 
 declare module 'next-auth/jwt' {
     interface JWT {
         id: string;
-        role: 'hospital' | 'admin' | 'superadmin';
+        role: 'hospital' | 'admin' | 'superadmin' | 'doctor';
         isVerified?: boolean;
+        hospitalId?: string;
+        departmentId?: string;
     }
 }
 
@@ -49,7 +54,7 @@ export const authOptions: AuthOptions = {
                     }
 
                     await connectDB();
-                    
+
                     const hospital = await Hospital.findOne({ email: credentials.email });
 
                     if (!hospital) {
@@ -119,6 +124,49 @@ export const authOptions: AuthOptions = {
                 }
             },
         }),
+        CredentialsProvider({
+            id: 'doctor-login',
+            name: 'Doctor Login',
+            credentials: {
+                email: { label: 'Email', type: 'email' },
+                password: { label: 'Password', type: 'password' },
+            },
+            async authorize(credentials): Promise<User | null> {
+                try {
+                    if (!credentials?.email || !credentials?.password) {
+                        return null;
+                    }
+
+                    await connectDB();
+
+                    const doctor = await Doctor.findOne({ email: credentials.email });
+                    if (!doctor) {
+                        throw new Error('No doctor found with this email');
+                    }
+
+                    if (!doctor.isActive) {
+                        throw new Error('This doctor account has been deactivated');
+                    }
+
+                    const isValid = await bcrypt.compare(credentials.password, doctor.password);
+                    if (!isValid) {
+                        throw new Error('Invalid password');
+                    }
+
+                    return {
+                        id: doctor._id.toString(),
+                        email: doctor.email,
+                        name: doctor.name,
+                        role: 'doctor',
+                        hospitalId: doctor.hospitalId.toString(),
+                        departmentId: doctor.departmentId.toString(),
+                    };
+                } catch (error: any) {
+                    console.error("Doctor Authorization Error:", error);
+                    throw new Error(error.message || 'An error occurred during authentication.');
+                }
+            },
+        }),
     ],
     callbacks: {
         async jwt({ token, user }) {
@@ -126,6 +174,8 @@ export const authOptions: AuthOptions = {
                 token.id = user.id;
                 token.role = user.role;
                 token.isVerified = user.isVerified;
+                token.hospitalId = user.hospitalId;
+                token.departmentId = user.departmentId;
             }
             return token;
         },
@@ -134,6 +184,8 @@ export const authOptions: AuthOptions = {
                 session.user.id = token.id;
                 session.user.role = token.role;
                 session.user.isVerified = token.isVerified;
+                session.user.hospitalId = token.hospitalId;
+                session.user.departmentId = token.departmentId;
             }
             return session;
         },

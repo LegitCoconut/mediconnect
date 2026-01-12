@@ -6,10 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { signIn } from "next-auth/react";
-<<<<<<< HEAD
-=======
 import { useState } from "react";
->>>>>>> e3668e5 (feat: Improve hospital login - remove hospital name field, add specific error messages)
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -36,22 +33,6 @@ export function HospitalLoginForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-<<<<<<< HEAD
-    const result = await signIn('hospital-login', {
-        redirect: false,
-        email: values.email,
-        password: values.password,
-    });
-
-    if (result?.error) {
-        toast({
-            variant: "destructive",
-            title: "Login Failed",
-            description: result.error,
-        });
-    } else if (result?.ok) {
-        router.push("/hospital/dashboard");
-=======
     setIsLoading(true);
     try {
       const result = await signIn("hospital-login", {
@@ -99,7 +80,6 @@ export function HospitalLoginForm() {
       });
     } finally {
       setIsLoading(false);
->>>>>>> e3668e5 (feat: Improve hospital login - remove hospital name field, add specific error messages)
     }
   }
 
@@ -130,7 +110,7 @@ export function HospitalLoginForm() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                   <FormLabel>Password</FormLabel>
+                  <FormLabel>Password</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="abcd" {...field} />
                   </FormControl>
@@ -143,7 +123,7 @@ export function HospitalLoginForm() {
             </Button>
           </form>
         </Form>
-         <div className="mt-4 text-center text-sm">
+        <div className="mt-4 text-center text-sm">
           Not a hospital?{' '}
           <Link href="/" className="underline">
             Go back
