@@ -93,6 +93,30 @@ const portalFeatures = [
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
+      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
+        <div className="w-[80%] mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Image src="/logo.png" alt="MediConnect" width={32} height={32} className="h-8 w-8 object-contain" />
+            <span className="font-headline font-bold text-xl">MediConnect</span>
+          </div>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <Button asChild variant="ghost" size="sm" className="hidden sm:flex">
+              <a href="/mediconnect.apk" download className="gap-2 text-muted-foreground hover:text-primary">
+                <Download className="h-4 w-4" />
+                <span className="hidden lg:inline">Download APK</span>
+              </a>
+            </Button>
+            <div className="h-6 w-px bg-border hidden sm:block" />
+            <Button asChild variant="ghost" size="sm">
+              <Link href="/hospital/login">Hospital</Link>
+            </Button>
+            <Button asChild size="sm">
+              <Link href="/doctor/login">Doctor</Link>
+            </Button>
+          </div>
+        </div>
+      </header>
+
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-primary/5">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
