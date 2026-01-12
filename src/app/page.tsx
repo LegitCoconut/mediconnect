@@ -93,44 +93,35 @@ const portalFeatures = [
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
-        <div className="w-[80%] mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="MediConnect" width={32} height={32} className="h-8 w-8 object-contain" />
-            <span className="font-headline font-bold text-xl">MediConnect</span>
-          </div>
-          <div className="flex items-center gap-2 sm:gap-4">
-            <Button asChild variant="ghost" size="sm" className="hidden sm:flex">
-              <a href="/mediconnect.apk" download className="gap-2 text-muted-foreground hover:text-primary">
-                <Download className="h-4 w-4" />
-                <span className="hidden lg:inline">Download APK</span>
-              </a>
-            </Button>
-            <div className="h-6 w-px bg-border hidden sm:block" />
-            <Button asChild variant="ghost" size="sm">
-              <Link href="/hospital/login">Hospital</Link>
-            </Button>
-            <Button asChild size="sm">
-              <Link href="/doctor/login">Doctor</Link>
-            </Button>
-          </div>
-        </div>
-      </header>
 
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-primary/5">
-        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="w-[80%] mx-auto px-4 py-20 lg:py-32">
+        {/* background grid overlay (non-interactive) */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none z-0"></div>
+
+        {/* main content */}
+        <div className="relative z-10 w-[80%] mx-auto px-4 py-20 lg:py-32">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1 text-center lg:text-left">
               <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
-                <Image src="/logo.png" alt="MediConnect" width={48} height={48} className="h-12 w-12 object-contain" />
-                <h1 className="font-headline text-4xl lg:text-5xl font-bold">MediConnect</h1>
+                <Image
+                  src="/logo.png"
+                  alt="MediConnect"
+                  width={48}
+                  height={48}
+                  className="h-12 w-12 object-contain"
+                />
+                <h1 className="font-headline text-4xl lg:text-5xl font-bold">
+                  MediConnect
+                </h1>
               </div>
+
               <p className="text-xl text-muted-foreground mb-8 max-w-xl">
-                Your complete healthcare ecosystem. Connect with hospitals, book appointments,
-                manage prescriptions, and take control of your health journey.
+                Your complete healthcare ecosystem. Connect with hospitals, book
+                appointments, manage prescriptions, and take control of your health
+                journey.
               </p>
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button asChild size="lg" className="gap-2">
                   <a href="/mediconnect.apk" download>
@@ -138,12 +129,14 @@ export default function Home() {
                     Download App (APK)
                   </a>
                 </Button>
+
                 <Button asChild size="lg" variant="outline" className="gap-2">
                   <Link href="/hospital/login">
                     <Hospital className="h-5 w-5" />
                     Hospital Portal
                   </Link>
                 </Button>
+
                 <Button asChild size="lg" variant="outline" className="gap-2">
                   <Link href="/doctor/login">
                     <Stethoscope className="h-5 w-5" />
@@ -152,9 +145,11 @@ export default function Home() {
                 </Button>
               </div>
             </div>
+
             <div className="flex-1 flex justify-center">
               <div className="relative">
-                <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-3xl blur-2xl"></div>
+                <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-3xl blur-2xl pointer-events-none"></div>
+
                 <Image
                   src="/home.png"
                   alt="MediConnect App"
@@ -167,6 +162,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
 
       {/* Mobile App Features */}
       <section className="py-20 bg-muted/30">
