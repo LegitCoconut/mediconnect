@@ -43,29 +43,13 @@ export function DashboardSidebar() {
             if (item.adminOnly && userRole !== 'admin') {
               return null;
             }
-            const href = `/dashboard${item.href === '/dashboard' ? '' : item.href}`;
-            const isActive = pathname === href || (href !== '/dashboard' && pathname.startsWith(href));
             
-            // Temporary mapping for pages that are not under /dashboard
-            if (['/appointments', '/doctors', '/prescriptions', '/hospitals'].includes(item.href)) {
-              const pagePath = item.href;
-              const isActive = pathname === pagePath || pathname.startsWith(pagePath);
-              return (
-                <SidebarMenuItem key={item.label}>
-                  <SidebarMenuButton asChild isActive={isActive} tooltip={item.label}>
-                    <Link href={pagePath}>
-                      <item.icon />
-                      <span>{item.label}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              );
-            }
-
+            const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
+            
             return (
               <SidebarMenuItem key={item.label}>
                 <SidebarMenuButton asChild isActive={isActive} tooltip={item.label}>
-                  <Link href={href}>
+                  <Link href={item.href}>
                     <item.icon />
                     <span>{item.label}</span>
                   </Link>

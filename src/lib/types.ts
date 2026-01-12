@@ -13,6 +13,11 @@ export type Doctor = {
   specialty: string;
   hospitalId: string;
   avatarUrl: string;
+  qualifications: string;
+  dateOfBirth: string;
+  status: 'pending' | 'approved';
+  consultationTimings: { day: string; startTime: string; endTime: string }[];
+  maxPatients: number;
 };
 
 export type Appointment = {

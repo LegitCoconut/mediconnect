@@ -34,6 +34,11 @@ export const doctors: Doctor[] = [
     specialty: 'Cardiology',
     hospitalId: 'hosp1',
     avatarUrl: 'https://picsum.photos/seed/doc1/100/100',
+    qualifications: 'M.D., F.A.C.C.',
+    dateOfBirth: '1985-05-20',
+    status: 'approved',
+    consultationTimings: [{ day: 'Monday', startTime: '09:00', endTime: '17:00' }],
+    maxPatients: 20,
   },
   {
     id: 'doc2',
@@ -41,6 +46,11 @@ export const doctors: Doctor[] = [
     specialty: 'Neurology',
     hospitalId: 'hosp2',
     avatarUrl: 'https://picsum.photos/seed/doc2/100/100',
+    qualifications: 'M.D., Ph.D.',
+    dateOfBirth: '1978-11-12',
+    status: 'approved',
+    consultationTimings: [{ day: 'Tuesday', startTime: '10:00', endTime: '18:00' }],
+    maxPatients: 15,
   },
   {
     id: 'doc3',
@@ -48,6 +58,11 @@ export const doctors: Doctor[] = [
     specialty: 'Pediatrics',
     hospitalId: 'hosp2',
     avatarUrl: 'https://picsum.photos/seed/doc3/100/100',
+    qualifications: 'M.D.',
+    dateOfBirth: '1990-01-30',
+    status: 'pending',
+    consultationTimings: [{ day: 'Wednesday', startTime: '08:00', endTime: '16:00' }],
+    maxPatients: 25,
   },
     {
     id: 'doc4',
@@ -55,6 +70,11 @@ export const doctors: Doctor[] = [
     specialty: 'Orthopedics',
     hospitalId: 'hosp1',
     avatarUrl: 'https://picsum.photos/seed/doc4/100/100',
+    qualifications: 'M.D.',
+    dateOfBirth: '1982-07-22',
+    status: 'approved',
+    consultationTimings: [{ day: 'Friday', startTime: '09:00', endTime: '17:00' }],
+    maxPatients: 18,
   },
 ];
 
