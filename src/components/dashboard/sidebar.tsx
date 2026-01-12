@@ -16,10 +16,10 @@ import { Button } from '@/components/ui/button';
 
 const menuItems = [
   { href: '/dashboard', label: 'Dashboard', icon: Home },
-  { href: '/dashboard/appointments', label: 'Appointments', icon: Calendar },
-  { href: '/dashboard/doctors', label: 'Doctors', icon: Stethoscope },
-  { href: '/dashboard/prescriptions', label: 'Prescriptions', icon: FileText },
-  { href: '/dashboard/hospitals', label: 'Hospitals', icon: Hospital, adminOnly: true },
+  { href: '/appointments', label: 'Appointments', icon: Calendar },
+  { href: '/doctors', label: 'Doctors', icon: Stethoscope },
+  { href: '/prescriptions', label: 'Prescriptions', icon: FileText },
+  { href: '/hospitals', label: 'Hospitals', icon: Hospital, adminOnly: true },
 ];
 
 export function DashboardSidebar() {
@@ -43,11 +43,29 @@ export function DashboardSidebar() {
             if (item.adminOnly && userRole !== 'admin') {
               return null;
             }
-            const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
+            const href = `/dashboard${item.href === '/dashboard' ? '' : item.href}`;
+            const isActive = pathname === href || (href !== '/dashboard' && pathname.startsWith(href));
+            
+            // Temporary mapping for pages that are not under /dashboard
+            if (['/appointments', '/doctors', '/prescriptions', '/hospitals'].includes(item.href)) {
+              const pagePath = item.href;
+              const isActive = pathname === pagePath || pathname.startsWith(pagePath);
+              return (
+                <SidebarMenuItem key={item.label}>
+                  <SidebarMenuButton asChild isActive={isActive} tooltip={item.label}>
+                    <Link href={pagePath}>
+                      <item.icon />
+                      <span>{item.label}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              );
+            }
+
             return (
               <SidebarMenuItem key={item.label}>
                 <SidebarMenuButton asChild isActive={isActive} tooltip={item.label}>
-                  <Link href={item.href}>
+                  <Link href={href}>
                     <item.icon />
                     <span>{item.label}</span>
                   </Link>
@@ -60,8 +78,8 @@ export function DashboardSidebar() {
       <SidebarFooter className="border-t border-border/20">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={pathname.startsWith('/dashboard/settings')} tooltip="Settings">
-              <Link href="/dashboard/settings">
+            <SidebarMenuButton asChild isActive={pathname.startsWith('/settings')} tooltip="Settings">
+              <Link href="/settings">
                 <Settings />
                 <span>Settings</span>
               </Link>

@@ -27,10 +27,10 @@ export function DashboardHeader() {
                     </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild><Link href="/dashboard/settings">Settings</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/settings">Settings</Link></DropdownMenuItem>
                 <DropdownMenuItem>Support</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild><Link href="/auth/login">Logout</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login">Logout</Link></DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     </header>
