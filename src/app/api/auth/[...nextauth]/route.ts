@@ -1,3 +1,5 @@
+
+'use client';
 import NextAuth, { AuthOptions, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { connectDB } from '@/lib/db';
