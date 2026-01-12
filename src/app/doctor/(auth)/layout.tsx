@@ -1,5 +1,6 @@
 
 import Link from "next/link";
+import Image from "next/image";
 import { HeartPulse } from "lucide-react";
 
 export default function DoctorAuthLayout({
@@ -18,7 +19,7 @@ export default function DoctorAuthLayout({
       <div className="w-full max-w-md z-10">
         <div className="mb-8 flex flex-col items-center gap-2">
           <Link href="/" className="flex items-center gap-2 font-headline text-3xl font-bold text-primary">
-            <HeartPulse className="h-10 w-10" />
+            <Image src="/logo.png" alt="MediConnect" width={40} height={40} className="h-10 w-10 object-contain" />
             <span>MediConnect Pro</span>
           </Link>
           <p className="text-muted-foreground text-sm">Professional Healthcare Portal</p>

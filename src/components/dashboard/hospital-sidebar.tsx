@@ -1,5 +1,6 @@
 "use client"
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   Sidebar,
@@ -26,17 +27,17 @@ export function DashboardSidebar() {
     <Sidebar>
       <SidebarHeader className="border-b border-border/20">
         <div className="flex h-14 items-center gap-2 px-4 sm:px-6">
-            <Link href="/hospital/dashboard" className="flex items-center gap-2 font-headline text-lg font-semibold text-primary">
-                <HeartPulse className="h-6 w-6" />
-                <span className="group-data-[collapsible=icon]:hidden">MediConnect Pro</span>
-            </Link>
+          <Link href="/hospital/dashboard" className="flex items-center gap-2 font-headline text-lg font-semibold text-primary">
+            <Image src="/logo.png" alt="MediConnect" width={24} height={24} className="h-6 w-6 object-contain" />
+            <span className="group-data-[collapsible=icon]:hidden">MediConnect Pro</span>
+          </Link>
         </div>
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
           {menuItems.map((item) => {
             const isActive = pathname === item.href || (item.href !== '/hospital/dashboard' && pathname.startsWith(item.href));
-            
+
             return (
               <SidebarMenuItem key={item.label}>
                 <SidebarMenuButton asChild isActive={isActive} tooltip={item.label}>
@@ -61,7 +62,7 @@ export function DashboardSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-             <SidebarMenuButton onClick={() => signOut({ callbackUrl: '/' })} asChild tooltip="Logout">
+            <SidebarMenuButton onClick={() => signOut({ callbackUrl: '/' })} asChild tooltip="Logout">
               <button>
                 <LogOut />
                 <span>Logout</span>
