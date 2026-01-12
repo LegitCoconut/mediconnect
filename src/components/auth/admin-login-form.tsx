@@ -1,18 +1,11 @@
-<<<<<<< HEAD
-=======
 "use client";
 
->>>>>>> 42c0d7a (added admin dashboard routing)
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-<<<<<<< HEAD
-import { signIn } from "next-auth/react";
-=======
 import { useState } from "react";
->>>>>>> 42c0d7a (added admin dashboard routing)
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -41,22 +34,6 @@ export function AdminLoginForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-<<<<<<< HEAD
-    const result = await signIn('admin-login', {
-      redirect: false,
-      email: values.email,
-      password: values.password,
-    });
-
-    if (result?.error) {
-      toast({
-        variant: "destructive",
-        title: "Login Failed",
-        description: result.error,
-      });
-    } else if (result?.ok) {
-      router.push("/dashboard");
-=======
     setIsLoading(true);
     try {
       const result = await loginAdmin(values.email, values.password);
@@ -84,7 +61,6 @@ export function AdminLoginForm() {
       });
     } finally {
       setIsLoading(false);
->>>>>>> 42c0d7a (added admin dashboard routing)
     }
   }
 

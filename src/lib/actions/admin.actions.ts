@@ -210,4 +210,80 @@ export async function loginAdmin(
     }
 }
 
+export type HospitalListItem = {
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
+    address: {
+        city: string;
+        state: string;
+    };
+    departments: string[];
+    isVerified: boolean;
+    isActive: boolean;
+    createdAt: Date;
+};
 
+export async function getAllHospitals(): Promise<HospitalListItem[]> {
+    try {
+        await connectDB();
+
+        const hospitals = await Hospital.find()
+            .select('name email phone address departments isVerified isActive createdAt')
+            .sort({ createdAt: -1 })
+            .lean();
+
+        return hospitals.map((h) => ({
+            id: h._id.toString(),
+            name: h.name,
+            email: h.email,
+            phone: h.phone,
+            address: {
+                city: h.address?.city || '',
+                state: h.address?.state || '',
+            },
+            departments: h.departments || [],
+            isVerified: h.isVerified,
+            isActive: h.isActive,
+            createdAt: h.createdAt,
+        }));
+    } catch (error) {
+        console.error('Get all hospitals error:', error);
+        return [];
+    }
+}
+
+export type PatientListItem = {
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
+    dateOfBirth?: Date;
+    gender?: string;
+    createdAt: Date;
+};
+
+export async function getAllPatients(): Promise<PatientListItem[]> {
+    try {
+        await connectDB();
+
+        const patients = await Patient.find()
+            .select('name email phone dateOfBirth gender createdAt')
+            .sort({ createdAt: -1 })
+            .lean();
+
+        return patients.map((p) => ({
+            id: p._id.toString(),
+            name: p.name,
+            email: p.email,
+            phone: p.phone,
+            dateOfBirth: p.dateOfBirth,
+            gender: p.gender,
+            createdAt: p.createdAt,
+        }));
+    } catch (error) {
+        console.error('Get all patients error:', error);
+        return [];
+    }
+}
