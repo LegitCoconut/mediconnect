@@ -7,6 +7,8 @@ import { redirect } from "next/navigation";
 import { getAppointmentsByDoctor } from "@/lib/actions/appointment.actions";
 import { AppointmentActions } from "@/components/doctor/appointment-actions";
 import { format } from "date-fns";
+import Link from "next/link";
+import { Eye } from "lucide-react";
 
 export default async function DoctorAppointmentsPage() {
     const session = await getServerSession(authOptions);
@@ -46,13 +48,22 @@ export default async function DoctorAppointmentsPage() {
                         <Card key={apt.id}>
                             <CardHeader className="pb-2">
                                 <div className="flex items-start justify-between">
-                                    <div>
-                                        <CardTitle className="text-lg">
-                                            {apt.patient?.name || 'Unknown Patient'}
-                                        </CardTitle>
-                                        <p className="text-sm text-muted-foreground">
-                                            {apt.patient?.email} • {apt.patient?.phone || 'No phone'}
-                                        </p>
+                                    <div className="flex items-center gap-3">
+                                        <div>
+                                            <CardTitle className="text-lg">
+                                                {apt.patient?.name || 'Unknown Patient'}
+                                            </CardTitle>
+                                            <p className="text-sm text-muted-foreground">
+                                                {apt.patient?.email} • {apt.patient?.phone || 'No phone'}
+                                            </p>
+                                        </div>
+                                        {apt.patient?.id && (
+                                            <Link href={`/doctor/patients/${apt.patient.id}`}>
+                                                <Button variant="outline" size="sm">
+                                                    <Eye className="h-4 w-4 mr-1" /> View Profile
+                                                </Button>
+                                            </Link>
+                                        )}
                                     </div>
                                     <Badge className={getStatusColor(apt.status)}>
                                         {apt.status.toUpperCase()}

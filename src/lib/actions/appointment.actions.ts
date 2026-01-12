@@ -1,7 +1,7 @@
 'use server';
 
 import { connectDB } from '@/lib/db';
-import { Appointment, Doctor, Patient, Prescription } from '@/models';
+import { Appointment, Doctor, Patient, Prescription, User } from '@/models';
 import { revalidatePath } from 'next/cache';
 
 export type ActionResult<T = null> = {
@@ -20,6 +20,8 @@ export async function getAppointmentsByHospital(
 ) {
     try {
         await connectDB();
+        // Ensure User model is registered for populate
+        void User;
 
         const query: Record<string, unknown> = { hospitalId };
         if (filters?.status) query.status = filters.status;
@@ -42,8 +44,8 @@ export async function getAppointmentsByHospital(
             ...a,
             _id: a._id.toString(),
             hospitalId: a.hospitalId.toString(),
-            doctorId: typeof a.doctorId === 'object' ? { ...a.doctorId, _id: (a.doctorId as { _id: { toString: () => string } })._id.toString() } : a.doctorId.toString(),
-            patientId: typeof a.patientId === 'object' ? { ...a.patientId, _id: (a.patientId as { _id: { toString: () => string } })._id.toString() } : a.patientId.toString(),
+            doctorId: a.doctorId && typeof a.doctorId === 'object' ? { ...a.doctorId, _id: (a.doctorId as { _id: { toString: () => string } })._id.toString() } : a.doctorId?.toString() || null,
+            patientId: a.patientId && typeof a.patientId === 'object' ? { ...a.patientId, _id: (a.patientId as { _id: { toString: () => string } })._id.toString() } : a.patientId?.toString() || null,
         }));
     } catch (error) {
         console.error('Get appointments error:', error);
@@ -54,6 +56,8 @@ export async function getAppointmentsByHospital(
 export async function getAppointmentsByDoctor(doctorId: string, date?: string) {
     try {
         await connectDB();
+        // Ensure User model is registered for populate
+        void User;
 
         const query: Record<string, unknown> = { doctorId };
 

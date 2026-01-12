@@ -76,6 +76,7 @@ export const authOptions: AuthOptions = {
                         name: hospital.name,
                         role: 'hospital',
                         isVerified: hospital.isVerified,
+                        hospitalId: hospital._id.toString(),
                     };
                 } catch (error: any) {
                     console.error("Authorization Error:", error);

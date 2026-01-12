@@ -18,7 +18,7 @@ const AppointmentSchema = new Schema<IAppointment>(
     {
         hospitalId: { type: Schema.Types.ObjectId, ref: 'Hospital', required: true },
         doctorId: { type: Schema.Types.ObjectId, ref: 'Doctor', required: true },
-        patientId: { type: Schema.Types.ObjectId, ref: 'Patient', required: true },
+        patientId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
         date: { type: Date, required: true },
         timeSlot: { type: String, required: true },
         status: {

@@ -13,11 +13,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { Separator } from "@/components/ui/separator";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email." }),
   password: z.string().min(1, { message: "Password is required." }),
 });
+
+const testAccounts = [
+  { name: "Dr. Rajesh Kumar", email: "rajesh.kumar@cityhospital.com", specialty: "Cardiologist" },
+  { name: "Dr. Priya Sharma", email: "priya.sharma@cityhospital.com", specialty: "Orthopedic" },
+  { name: "Dr. Amit Patel", email: "amit.patel@cityhospital.com", specialty: "Neurologist" },
+  { name: "Dr. Sneha Gupta", email: "sneha.gupta@cityhospital.com", specialty: "Pediatrician" },
+  { name: "Dr. Vikram Singh", email: "vikram.singh@cityhospital.com", specialty: "General" },
+];
 
 export function DoctorLoginForm() {
   const router = useRouter();
@@ -82,13 +91,18 @@ export function DoctorLoginForm() {
     }
   }
 
+  function fillTestCredentials(email: string) {
+    form.setValue("email", email);
+    form.setValue("password", "doctor123");
+  }
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Doctor Login</CardTitle>
+    <Card className="shadow-xl border-0">
+      <CardHeader className="text-center pb-2">
+        <CardTitle className="text-2xl">Doctor Login</CardTitle>
         <CardDescription>Access your schedule and patient information.</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -122,9 +136,33 @@ export function DoctorLoginForm() {
             </Button>
           </form>
         </Form>
-        <div className="mt-4 text-center text-sm">
+
+        <Separator />
+
+        <div className="space-y-3">
+          <p className="text-xs text-muted-foreground text-center font-medium">Quick Login (Test Accounts)</p>
+          <div className="grid grid-cols-1 gap-2">
+            {testAccounts.map((account) => (
+              <button
+                key={account.email}
+                type="button"
+                onClick={() => fillTestCredentials(account.email)}
+                className="flex items-center justify-between p-2 rounded-lg border border-border/50 hover:bg-accent/50 transition-colors text-left text-sm"
+              >
+                <div>
+                  <p className="font-medium">{account.name}</p>
+                  <p className="text-xs text-muted-foreground">{account.specialty}</p>
+                </div>
+                <span className="text-xs text-primary">Use</span>
+              </button>
+            ))}
+          </div>
+          <p className="text-xs text-muted-foreground text-center">All test accounts use password: <code className="bg-muted px-1 rounded">doctor123</code></p>
+        </div>
+
+        <div className="text-center text-sm">
           Not a doctor?{' '}
-          <Link href="/" className="underline">
+          <Link href="/" className="underline text-primary">
             Go back
           </Link>
         </div>

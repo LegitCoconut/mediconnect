@@ -13,6 +13,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { Separator } from "@/components/ui/separator";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email." }),
@@ -83,13 +84,18 @@ export function HospitalLoginForm() {
     }
   }
 
+  function fillTestCredentials() {
+    form.setValue("email", "cityhospital@demo.com");
+    form.setValue("password", "hospital123");
+  }
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Hospital Login</CardTitle>
+    <Card className="shadow-xl border-0">
+      <CardHeader className="text-center pb-2">
+        <CardTitle className="text-2xl">Hospital Login</CardTitle>
         <CardDescription>Login to manage your institution's profile and staff.</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -99,7 +105,7 @@ export function HospitalLoginForm() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="abd@gmail.com" {...field} />
+                    <Input placeholder="hospital@example.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -112,7 +118,7 @@ export function HospitalLoginForm() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="abcd" {...field} />
+                    <Input type="password" placeholder="Your password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -123,9 +129,28 @@ export function HospitalLoginForm() {
             </Button>
           </form>
         </Form>
-        <div className="mt-4 text-center text-sm">
+
+        <Separator />
+
+        <div className="space-y-3">
+          <p className="text-xs text-muted-foreground text-center font-medium">Quick Login (Test Account)</p>
+          <button
+            type="button"
+            onClick={fillTestCredentials}
+            className="w-full flex items-center justify-between p-3 rounded-lg border border-border/50 hover:bg-accent/50 transition-colors text-left"
+          >
+            <div>
+              <p className="font-medium">City General Hospital</p>
+              <p className="text-xs text-muted-foreground">cityhospital@demo.com</p>
+            </div>
+            <span className="text-xs text-primary font-medium">Use</span>
+          </button>
+          <p className="text-xs text-muted-foreground text-center">Password: <code className="bg-muted px-1 rounded">hospital123</code></p>
+        </div>
+
+        <div className="text-center text-sm">
           Not a hospital?{' '}
-          <Link href="/" className="underline">
+          <Link href="/" className="underline text-primary">
             Go back
           </Link>
         </div>

@@ -38,6 +38,7 @@ export async function GET(request: NextRequest) {
 
         const data = prescriptions.map((p) => ({
             id: p._id.toString(),
+            appointmentId: p.appointmentId?.toString(),
             diagnosis: p.diagnosis,
             notes: p.notes,
             medicines: p.medicines.map((m) => ({
