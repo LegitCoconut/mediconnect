@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
+  hospitalName: z.string().min(1, { message: "Hospital name is required." }),
   email: z.string().email({ message: "Please enter a valid email." }),
   password: z.string().min(1, { message: "Password is required." }),
 });
@@ -25,6 +26,7 @@ export function HospitalLoginForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      hospitalName: "",
       email: "",
       password: "",
     },
@@ -52,6 +54,19 @@ export function HospitalLoginForm() {
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="hospitalName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Hospital Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Green Valley General" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="email"
