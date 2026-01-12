@@ -1,4 +1,3 @@
-
 "use client"
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -12,6 +11,7 @@ import {
   SidebarFooter,
 } from '@/components/ui/sidebar';
 import { Home, Stethoscope, Calendar, Settings, LogOut, HeartPulse } from 'lucide-react';
+import { signOut } from 'next-auth/react';
 
 const menuItems = [
   { href: '/hospital/dashboard', label: 'Dashboard', icon: Home },
@@ -61,11 +61,11 @@ export function DashboardSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild tooltip="Logout">
-              <Link href="/">
+             <SidebarMenuButton onClick={() => signOut({ callbackUrl: '/' })} asChild tooltip="Logout">
+              <button>
                 <LogOut />
                 <span>Logout</span>
-              </Link>
+              </button>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
