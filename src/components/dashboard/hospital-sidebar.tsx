@@ -11,13 +11,12 @@ import {
   SidebarMenuButton,
   SidebarFooter,
 } from '@/components/ui/sidebar';
-import { Home, Stethoscope, Calendar, FileText, Settings, LogOut, HeartPulse } from 'lucide-react';
+import { Home, Stethoscope, Calendar, Settings, LogOut, HeartPulse } from 'lucide-react';
 
 const menuItems = [
   { href: '/hospital/dashboard', label: 'Dashboard', icon: Home },
   { href: '/hospital/appointments', label: 'Appointments', icon: Calendar },
   { href: '/hospital/doctors', label: 'Doctors', icon: Stethoscope },
-  { href: '/hospital/prescriptions', label: 'Prescriptions', icon: FileText },
 ];
 
 export function DashboardSidebar() {

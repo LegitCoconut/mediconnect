@@ -15,7 +15,7 @@ export type Doctor = {
   avatarUrl: string;
   qualifications: string;
   dateOfBirth: string;
-  status: 'pending' | 'approved';
+  status: 'pending' | 'approved' | 'on-leave';
   consultationTimings: { day: string; startTime: string; endTime: string }[];
   maxPatients: number;
 };
