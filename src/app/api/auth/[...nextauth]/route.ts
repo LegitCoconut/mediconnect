@@ -43,49 +43,54 @@ export const authOptions: AuthOptions = {
                 password: { label: 'Password', type: 'password' },
             },
             async authorize(credentials): Promise<User | null> {
-                if (!credentials?.email || !credentials?.password) {
-                    return null;
+                try {
+                    if (!credentials?.email || !credentials?.password) {
+                        return null;
+                    }
+
+                    await connectDB();
+                    
+                    // Temporary sample user creation for testing
+                    const existingHospital = await Hospital.findOne({ email: "abd@gmail.com" });
+                    if (!existingHospital) {
+                        const salt = await bcrypt.genSalt(10);
+                        const hashedPassword = await bcrypt.hash("abcd", salt);
+                        await Hospital.create({
+                            name: "abcdhop",
+                            email: "abd@gmail.com",
+                            password: hashedPassword,
+                            phone: "1234567890",
+                            isVerified: true,
+                        });
+                    }
+
+
+                    const hospital = await Hospital.findOne({ email: credentials.email });
+
+                    if (!hospital) {
+                        throw new Error('No hospital found with this email');
+                    }
+
+                    if (!hospital.isActive) {
+                        throw new Error('This hospital account has been suspended');
+                    }
+
+                    const isValid = await bcrypt.compare(credentials.password, hospital.password);
+                    if (!isValid) {
+                        throw new Error('Invalid password');
+                    }
+
+                    return {
+                        id: hospital._id.toString(),
+                        email: hospital.email,
+                        name: hospital.name,
+                        role: 'hospital',
+                        isVerified: hospital.isVerified,
+                    };
+                } catch (error: any) {
+                    console.error("Authorization Error:", error);
+                    throw new Error(error.message || 'An error occurred during authentication.');
                 }
-
-                await connectDB();
-                
-                // Temporary sample user creation for testing
-                const existingHospital = await Hospital.findOne({ email: "abd@gmail.com" });
-                if (!existingHospital) {
-                    const salt = await bcrypt.genSalt(10);
-                    const hashedPassword = await bcrypt.hash("abcd", salt);
-                    await Hospital.create({
-                        name: "abcdhop",
-                        email: "abd@gmail.com",
-                        password: hashedPassword,
-                        phone: "1234567890",
-                        isVerified: true,
-                    });
-                }
-
-
-                const hospital = await Hospital.findOne({ email: credentials.email });
-
-                if (!hospital) {
-                    throw new Error('No hospital found with this email');
-                }
-
-                if (!hospital.isActive) {
-                    throw new Error('This hospital account has been suspended');
-                }
-
-                const isValid = await bcrypt.compare(credentials.password, hospital.password);
-                if (!isValid) {
-                    throw new Error('Invalid password');
-                }
-
-                return {
-                    id: hospital._id.toString(),
-                    email: hospital.email,
-                    name: hospital.name,
-                    role: 'hospital',
-                    isVerified: hospital.isVerified,
-                };
             },
         }),
         CredentialsProvider({
@@ -96,32 +101,37 @@ export const authOptions: AuthOptions = {
                 password: { label: 'Password', type: 'password' },
             },
             async authorize(credentials): Promise<User | null> {
-                if (!credentials?.email || !credentials?.password) {
-                    return null;
+                try {
+                    if (!credentials?.email || !credentials?.password) {
+                        return null;
+                    }
+
+                    await connectDB();
+
+                    const admin = await Admin.findOne({ email: credentials.email });
+                    if (!admin) {
+                        throw new Error('Invalid admin credentials');
+                    }
+
+                    if (!admin.isActive) {
+                        throw new Error('This admin account has been deactivated');
+                    }
+
+                    const isValid = await bcrypt.compare(credentials.password, admin.password);
+                    if (!isValid) {
+                        throw new Error('Invalid password');
+                    }
+
+                    return {
+                        id: admin._id.toString(),
+                        email: admin.email,
+                        name: admin.name,
+                        role: admin.role as 'admin' | 'superadmin',
+                    };
+                } catch (error: any) {
+                    console.error("Authorization Error:", error);
+                    throw new Error(error.message || 'An error occurred during authentication.');
                 }
-
-                await connectDB();
-
-                const admin = await Admin.findOne({ email: credentials.email });
-                if (!admin) {
-                    throw new Error('Invalid admin credentials');
-                }
-
-                if (!admin.isActive) {
-                    throw new Error('This admin account has been deactivated');
-                }
-
-                const isValid = await bcrypt.compare(credentials.password, admin.password);
-                if (!isValid) {
-                    throw new Error('Invalid password');
-                }
-
-                return {
-                    id: admin._id.toString(),
-                    email: admin.email,
-                    name: admin.name,
-                    role: admin.role as 'admin' | 'superadmin',
-                };
             },
         }),
     ],
